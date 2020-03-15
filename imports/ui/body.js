@@ -20,22 +20,23 @@ Template.body.helpers({
 
 Template.body.events({
     'click button#submit-task'(event) {
-      console.log("Clicked")
       // Prevent default browser form submit
       event.preventDefault();
    
-      // Get value from form element
-      const target = event.target;
-      console.log(target)
-      const text = target.text.value;
+      // Get value from form input element
+      const task = $('.task').val();
    
       // Insert a task into the collection
-      Tasks.insert({
-        text,
-        createdAt: new Date(), // current time
-      });
+      if(task){
+        Tasks.insert({
+            text: task,
+            createdAt: new Date(), // current time
+          });
+      }else{
+          alert('Enter a task value')
+      }      
    
-      // Clear form
-      target.text.value = '';
+      // Clear form input
+      $('.task').val('');
     },
 });
