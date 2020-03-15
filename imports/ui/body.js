@@ -5,17 +5,8 @@ import { Tasks }  from '../api/tasks.js';
  
 Template.body.helpers({
     tasks : function() {
-        // console.log(Tasks.find({}))
         return Tasks.find({});
     }
-    // Manually creating an array of tasks to display on the client ui
-    // tasks: function(){
-    //     return [
-    //         { "text" : "Hello" },
-    //         { "text" : "World" },
-    //         { "text" : "!" }
-    //     ];
-    // }
 });
 
 Template.body.events({
