@@ -6,12 +6,19 @@
         <input type="checkbox"  class="check-task">
         {{/if}}
         
-        <div class="table-col flex-col w-30 title" id="title_col">{{text}}</div>
+
+        {{ #if isEdit }}
+            <input type="text" value="{{ text }}"/>
+            <button class="edit-task">Update</button>
+        {{ else }}
+            <div class="table-col flex-col w-30 title" id="title_col">{{text}}</div>
+            <button class="edit-task">Edit</button>
+        {{ /if }}
+        
+        <button class="delete">&times;</button>
         
         <div class="table-col flex-2">{{formatDate createdAt}}</div>  
-        <div class="table-col flex-2">Status</div>
-        <button class="edit-task">Edit</button>
-        <button class="delete">&times;</button>
+        <div class="table-col flex-2">{{ status }}</div>
         <br>
         <br>
     </div>

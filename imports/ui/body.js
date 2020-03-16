@@ -17,15 +17,23 @@ Template.body.helpers({
         }else{
             return false
         }
-    }
+    },
+    
 
 });
 
 Template.registerHelper( 
     "formatDate",function(date){
         return moment(date).fromNow()
-    }
+    },
+    
 )
+
+Template.task.helpers({
+    isEdit:function(){
+        return true;
+    }
+})
 
 Template.body.events({
     // Adding tasks
@@ -41,6 +49,7 @@ Template.body.events({
         Tasks.insert({
             text: task,
             checked: false,
+            status: "new",
             createdAt: new Date(), // current time
           });
       }else{
@@ -54,27 +63,28 @@ Template.body.events({
     // Check Uncheck Tasks
     'click .check-task'(){
         var data = Tasks.findOne({ _id:{ $eq : this._id}})
+        var status = data.checked ? "Pending" : "Completed";
         console.log(!this.checked)
-        Tasks.update({ _id: (data._id) }, {$set:{"checked": !this.checked}})    
+        Tasks.update({ _id: (data._id) }, {$set:{"checked": !this.checked, "status" : status}})    
     },
 
     // Edit task
     'click .edit-task'(){
-        var data = Tasks.findOne({ _id:{ $eq : this._id}}).text
-        // Create node only if it doesnt exist
-        if (!document.getElementById("update-node")){
-            document.getElementById('container').insertAdjacentHTML('afterbegin', '<div id="update-node"><input type="text" id="edit-task" value="' + data + ' "><button class="update-task">Update</button></div>')
-        }
+
+        // console.log(this,"this");
+        // // var data = Tasks.findOne({ _id:{ $eq : this._id}}).text
+        // // Create node only if it doesnt exist
+        // if (!document.getElementById("update-node")){
+        //     document.getElementById('title_col').insertAdjacentHTML('afterbegin', '<div id="update-node"><input type="text" id="edit-task" value="' + this.text + ' "><button class="update-task">Update</button></div>')
+        // }
     },
 
     // Updates task
-    'click .update-task'(){
-        console.log("updated")
+    'click .update-task'(event, instance){
+        console.log(instance)
         var text = document.getElementById('edit-task').value;
-        console.log(text)
         if(text){
             var data = Tasks.findOne({ _id:{ $eq : this._id}})
-            console.log(text)
             Tasks.update({ _id: (data._id) }, {$set:{"text": text}})  
             $("#update-node").remove()
         }
