@@ -1,0 +1,18 @@
+<template name="task">
+    <div class="table-row d-flex align-center">
+        {{#if checked}}
+        <input type="checkbox"  class="check-task" checked>
+        {{else}}        
+        <input type="checkbox"  class="check-task">
+        {{/if}}
+        
+        <div class="table-col flex-col w-30 title" id="title_col">{{text}}</div>
+        
+        <div class="table-col flex-2">{{formatDate createdAt}}</div>  
+        <div class="table-col flex-2">Status</div>
+        <button class="edit-task">Edit</button>
+        <button class="delete">&times;</button>
+        <br>
+        <br>
+    </div>
+</template>

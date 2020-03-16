@@ -10,14 +10,26 @@
       </form>
       <br/>
       <hr/>
-      <ul>
-        {{#each tasks}}
-          {{> task}}
-        {{/each}}
-      </ul>
+      <div class="container">
+        <div class="table">
+          <div class="table-titles d-flex align-center">
+              <div class="table-title table-col w-30">Title</div>
+              <div class="table-title table-col flex-3">Created At</div>
+              <div class="table-title table-col flex-2">Status</div>
+              <div class="table-title table-col flex-1">Action</div>
+
+          </div>
+          <div class="table-body">                
+              {{#each tasks}}
+              
+                  {{> task}}
+
+              {{/each}}                
+          </div>
+          <div id="container"> 
+
+          </div>
+        </div>
+        </div>
     </div>
 </body>
-   
-<template name="task">
-    <li>{{text}}</li>
-</template>
